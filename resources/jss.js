@@ -6,8 +6,8 @@ var question = $("#question");
 var time = $("#timer");
 var start = $("#start")
 var startHeader=$("#startHeader")
-var timeLeft = 60;
-
+var timeLeft = 59;
+// Hides quiz on start until user clicks start button
 $(document).ready(function(){
     question.hide();
     time.hide();
@@ -16,7 +16,7 @@ $(document).ready(function(){
     choiceThree.hide();
     choiceFour.hide();
 })
-
+// Start button, reveals question, timer and possible answers, hides start button
 start.on("click", function(){
     startHeader.hide();
     question.show();
@@ -25,11 +25,13 @@ start.on("click", function(){
     choiceTwo.show();
     choiceThree.show();
     choiceFour.show();
-    countDown();
+    jQuery(function ($) {
+        startTimer(timeLeft, time);
+    });
 })
-
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
+// Timer function, taken from https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript
+function startTimer(timeLeft, display) {
+    var timer = timeLeft, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -37,17 +39,15 @@ function startTimer(duration, display) {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.text(minutes + ":" + seconds);
+        display.text("0:" + seconds);
 
         if (--timer < 0) {
-            timer = duration;
+            timer = timeLeft;
         }
     }, 1000);
 }
 
-jQuery(function ($) {
-    startTimer(timeLeft, time);
-});
+
 
 // Show/hide explanation
 // https://www.codeproject.com/Questions/458830/Show-Hide-DIV-using-JQuery
