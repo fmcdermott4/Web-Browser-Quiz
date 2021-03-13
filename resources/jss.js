@@ -7,6 +7,16 @@ var time = $("#timer");
 var start = $("#start")
 var startHeader=$("#startHeader")
 var timeLeft = 59;
+// Object defining question 1
+
+const questionOne = {
+    question: [`Answer me`],
+    a1: [`I'm right`, 10],
+    a2: [`I'm wrong`, -10],
+    a3: [`I'm wrong`, -10],
+    a4: [`I'm wrong`, -10],
+}
+
 // Hides quiz on start until user clicks start button
 $(document).ready(function(){
     question.hide();
@@ -25,27 +35,19 @@ start.on("click", function(){
     choiceTwo.show();
     choiceThree.show();
     choiceFour.show();
-    jQuery(function ($) {
-        startTimer(timeLeft, time);
-    });
+    startTheQuiz();
+    startTimer();
 })
-// Timer function, taken from https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript
-function startTimer(timeLeft, display) {
-    var timer = timeLeft, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+function startTheQuiz() {
 
-        display.text("0:" + seconds);
-
-        if (--timer < 0) {
-            timer = timeLeft;
-        }
-    }, 1000);
 }
+function startTimer(){
+setInterval(function(){
+    time.text(timeLeft + "s");
+    timeLeft = timeLeft - 1;
+}, 1000)}
+
 
 
 
