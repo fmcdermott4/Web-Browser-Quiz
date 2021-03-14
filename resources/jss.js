@@ -66,6 +66,7 @@ function next(x){
     else{
         finalScore = timeLeft;
         $("main").hide();
+        $("#highScores").show();
     }    
 }
 // function for interval timer
@@ -88,6 +89,11 @@ function nextQuestion(i) {
 // pulls score modifier from answerMe object and adjusts current time by the amount
 function addScore(x,i){
     timeLeft += answerMe.question[i].answer[x][1];
+}
+function submitForm(event){
+    event.preventDefault();
+    var init = $("#initials").text();
+    localStorage.setItem(init, finalScore);
 }
 // Show/hide explanation
 // https://www.codeproject.com/Questions/458830/Show-Hide-DIV-using-JQuery
