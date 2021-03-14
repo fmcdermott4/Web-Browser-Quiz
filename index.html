@@ -20,11 +20,11 @@
             </h3>
         </div>
     </header>
-    <header id="startHeader" class ="row container col-12">
+    <!-- <header id="startHeader" class ="row container col-12">
         <div class="col"></div>
         <button type="button" id="start" class="btn btn-primary col">Click me to start the quiz</button>
         <div class="col"></div>
-    </header>
+    </header> -->
     <main>
         <div class="row container col-12">
             <div class="col">
@@ -47,12 +47,13 @@
                 
                 </div>
                 <div class="col-5">
-                    <button type="button" id="choiceOne" class="answer btn btn-primary col-12">Yes</button>
+                    <button type="button" id="choiceOne" onclick="next(0)" class="answer btn btn-primary col-12">Yes
+                    </button>
                 </div>
                 <div class="col">
                 </div>
                 <div class="col-5">
-                    <button type="button" id="choiceTwo"class="answer btn btn-primary col-12">I was born ready</button>
+                    <button type="button" id="choiceTwo" onclick="next(1)"class="answer btn btn-primary col-12">I was born ready</button>
                 </div>
                 <div class="col">
                 </div>
@@ -64,12 +65,12 @@
                 
                 </div>
                 <div class="col-5">
-                    <button type="button" id="choiceThree"class="answer btn btn-primary col-12">Hurt me plenty</button>
+                    <button type="button" id="choiceThree" onclick="next(2)"class="answer btn btn-primary col-12">Hurt me plenty</button>
                 </div>
                 <div class="col">
                 </div>
                 <div class="col-5">
-                    <button type="button" id="choiceFour" class="answer btn btn-primary col-12">What quiz?</button>
+                    <button type="button" id="choiceFour" onclick="next(3)" class="answer btn btn-primary col-12">What quiz?</button>
                 </div>
                 <div class="col">
                     

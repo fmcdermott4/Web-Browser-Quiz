@@ -7,48 +7,59 @@ var time = $("#timer");
 var start = $("#start")
 var startHeader=$("#startHeader")
 var timeLeft = 59;
-// Object defining question 1
+var clickEvent = $(".answer");
+var i=0;
+var timeStarted = false;
 
-const questionOne = {
-    question: [`Answer me`],
-    a1: [`I'm right`, 10],
-    a2: [`I'm wrong`, -10],
-    a3: [`I'm wrong`, -10],
-    a4: [`I'm wrong`, -10],
+// Object defining questions ans answers
+
+var answerMe = new Object()
+answerMe.question= [];
+answerMe.question[0] = [`Commnly used data types DO NOT include`];
+answerMe.question[0].answer = [];
+answerMe.question[0].answer[0] = [`1. strings`, -10];
+answerMe.question[0].answer[1] = [`2. booleans`, -10];
+answerMe.question[0].answer[2] = [`3. alerts`, -10];
+answerMe.question[0].answer[3] = [`4. functions`, -10];
+
+function next(x){
+    if (!timeStarted){
+        startTimer();
+        nextQuestion(i);
+    } else if (answerMe.question.length() > i) {
+        i++;
+
+    }
+    else{
+        i++;
+
+    }
+    
 }
 
-// Hides quiz on start until user clicks start button
-$(document).ready(function(){
-    question.hide();
-    time.hide();
-    choiceOne.hide();
-    choiceTwo.hide();
-    choiceThree.hide();
-    choiceFour.hide();
-})
-// Start button, reveals question, timer and possible answers, hides start button
-start.on("click", function(){
-    startHeader.hide();
-    question.show();
-    time.show();
-    choiceOne.show();
-    choiceTwo.show();
-    choiceThree.show();
-    choiceFour.show();
-    startTheQuiz();
-    startTimer();
-})
 
-function startTheQuiz() {
-
-}
 function startTimer(){
 setInterval(function(){
     time.text(timeLeft + "s");
     timeLeft = timeLeft - 1;
+    if ( timeLeft == 0 ){
+        return;
+    }
 }, 1000)}
 
-
+function nextQuestion(i) {   
+        question.text(answerMe.question[i]);
+        choiceOne.text(answerMe.question[i].answer[0][0]);
+        choiceTwo.text(answerMe.question[i].answer[1][0]);
+        choiceThree.text(answerMe.question[i].answer[2][0]);
+        choiceFour.text(answerMe.question[i].answer[3][0]);
+    }    
+// function listenForAnswer() {
+//     $("#choiceOne").on("click", console.log("hey1"));
+//     $("#choiceTwo").on("click", console.log("hey2"));
+//     $("#choiceThree").on("click", console.log("hey3"));
+//     $("#choiseFour").on("click", console.log("hey4"));
+// }
 
 
 // Show/hide explanation
