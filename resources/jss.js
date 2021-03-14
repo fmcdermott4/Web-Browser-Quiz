@@ -8,10 +8,11 @@ var start = $("#start")
 var startHeader=$("#startHeader")
 var timeLeft = 60;
 var clickEvent = $(".answer");
-var i=-1;
+var i=0;
 var timeStarted = false;
+var finalScore;
 
-// Object defining questions ans answers
+// Object defining questions and answers
 
 var answerMe = new Object()
 answerMe.question= [];
@@ -49,25 +50,25 @@ answerMe.question[4].answer[0] = [`1. JavaScript`, -10];
 answerMe.question[4].answer[1] = [`2. terminal/bash`, -10];
 answerMe.question[4].answer[2] = [`3. for loops`, -10];
 answerMe.question[4].answer[3] = [`4. console.log`, 10];
-
+// main function directing other functions in program
 function next(x){
-    i++;
+    if(timeStarted){
+        addScore(x,i);
+        i++;
+    }
     if (!timeStarted){
         startTimer();
         nextQuestion(i);
         timeStarted=true;
     } else if (answerMe.question.length > i) {
-        addScore();
         nextQuestion(i);
     }
     else{
+        finalScore = timeLeft;
         $("main").hide();
-
-    }
-    
+    }    
 }
-
-
+// function for interval timer
 function startTimer(){
 setInterval(function(){
     if ( timeLeft === 0 ){
@@ -75,17 +76,19 @@ setInterval(function(){
     }
     timeLeft = timeLeft - 1;
     time.text(timeLeft + "s");    
-    
 }, 1000)}
-
+// pulls data from answerMe object to populate question and answers
 function nextQuestion(i) {   
-        question.text(answerMe.question[i]);
-        choiceOne.text(answerMe.question[i].answer[0][0]);
-        choiceTwo.text(answerMe.question[i].answer[1][0]);
-        choiceThree.text(answerMe.question[i].answer[2][0]);
-        choiceFour.text(answerMe.question[i].answer[3][0]);
-    }    
-
+    question.text(answerMe.question[i]);
+    choiceOne.text(answerMe.question[i].answer[0][0]);
+    choiceTwo.text(answerMe.question[i].answer[1][0]);
+    choiceThree.text(answerMe.question[i].answer[2][0]);
+    choiceFour.text(answerMe.question[i].answer[3][0]);
+}    
+// pulls score modifier from answerMe object and adjusts current time by the amount
+function addScore(x,i){
+    timeLeft += answerMe.question[i].answer[x][1];
+}
 // Show/hide explanation
 // https://www.codeproject.com/Questions/458830/Show-Hide-DIV-using-JQuery
 // Timer code taken verbatum
