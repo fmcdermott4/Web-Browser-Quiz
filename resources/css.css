@@ -1,0 +1,4 @@
+.answer > * {
+    pointer-events: none;
+    
+}

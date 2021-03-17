@@ -11,9 +11,12 @@ var clickEvent = $(".answer");
 var i = 0;
 var timeStarted = false;
 var finalScore;
+var tableBody = $("#table-body");
 
 // Object defining questions and answers
 $("#highScores").hide();
+$("#scores-from-storage").hide();
+
 var answerMe = new Object();
 answerMe.question = [];
 answerMe.question[0] = [`Commonly used data types DO NOT include`];
@@ -72,6 +75,7 @@ function next(x) {
     finalScore = timeLeft;
     $("main").hide();
     $("#highScores").show();
+    $("#scores-from-storage").show();
   }
 }
 // function for interval timer
@@ -105,23 +109,48 @@ function submitForm(event) {
   var newObjToStore = { initials: init, score: finalScore };
 
   if (localStorage.getItem("quizScores")) {
+    //If there are already existing scores in storage
     var scoresfromStorage = localStorage.getItem("quizScores");
     var arrayFromStorage = JSON.parse(scoresfromStorage);
-    arrayFromStorage.push(newObjToStore);
-    localStorage.setItem("quizScores", JSON.stringify(arrayFromStorage))
-    // console.log(arrayFromStorage);
+    arrayFromStorage.unshift(newObjToStore);
+    localStorage.setItem("quizScores", JSON.stringify(arrayFromStorage));
   } else {
-    // console.log("nothing in memory");
+    //if nothing stored in storage
     localStorage.setItem("quizScores", JSON.stringify([newObjToStore]));
   }
-
   // if  (init.trim()!==''){
   //     console.log(init)
   // }
   // else if (init.length() > 3) {
   //     console.log("too long");
   // }
+  tableBody.html("");
+  populateScoreTable();
 }
+
+
+function populateScoreTable() {
+  //clear out the high scores table
+
+  if (localStorage.getItem("quizScores")) {
+    var scoresfromStorage = localStorage.getItem("quizScores");
+    var arrayFromStorage = JSON.parse(scoresfromStorage);
+
+    for (var i = 0; i < arrayFromStorage.length; i++) {
+      //create a <tr><td>User</td><td>Score</td></tr>
+      var newRow = document.createElement("tr");
+      var userInitials = document.createElement("td");
+      userInitials.textContent = arrayFromStorage[i].initials;
+      var userScore = document.createElement("td");
+      userScore.textContent = arrayFromStorage[i].score;
+      newRow.append(userInitials);
+      newRow.append(userScore);
+      tableBody.append(newRow);
+    }
+  }
+}
+
+populateScoreTable();
 // Show/hide explanation
 // https://www.codeproject.com/Questions/458830/Show-Hide-DIV-using-JQuery
 // Timer code taken verbatum
