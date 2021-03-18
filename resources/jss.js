@@ -103,6 +103,7 @@ choiceOne.on("click", () => {
 function addScore(x, i) {
   timeLeft += answerMe.question[i].answer[x][1];
 }
+// submits user initials to local data and appends high score list
 function submitForm(event) {
   event.preventDefault();
   var init = $("#initials2").val();
@@ -117,15 +118,10 @@ function submitForm(event) {
   } else {
     //if nothing stored in storage
     localStorage.setItem("quizScores", JSON.stringify([newObjToStore]));
-  }
-  // if  (init.trim()!==''){
-  //     console.log(init)
-  // }
-  // else if (init.length() > 3) {
-  //     console.log("too long");
-  // }
+  } 
   tableBody.html("");
   populateScoreTable();
+  $("#submit-form").hide();
 }
 
 
@@ -146,6 +142,7 @@ function populateScoreTable() {
       newRow.append(userInitials);
       newRow.append(userScore);
       tableBody.append(newRow);
+     
     }
   }
 }
